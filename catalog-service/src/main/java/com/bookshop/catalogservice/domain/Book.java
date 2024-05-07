@@ -6,30 +6,46 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-@Data
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Setter(AccessLevel.NONE)
     private Long id;
 
     private String isbn;
+
     private String title;
+
     private String author;
+
     private Double price;
 
     @CreationTimestamp
-    @Setter(AccessLevel.NONE)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Setter(AccessLevel.NONE)
     private LocalDateTime updatedAt;
+
+    public void updateDetails(Book book) {
+        this.title = book.title;
+        this.author = book.author;
+        this.price = book.price;
+    }
+
+    @Builder
+    public Book(String isbn, String title, String author, Double price) {
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+        this.price = price;
+    }
 }

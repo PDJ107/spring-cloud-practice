@@ -30,11 +30,6 @@ public class BookRequest {
     private Double price;
 
     public Book toBook() {
-        Book book = new Book();
-        book.setIsbn(isbn);
-        book.setTitle(title);
-        book.setAuthor(author);
-        book.setPrice(price);
-        return book;
+        return Book.builder().isbn(isbn).title(title).author(author).price(price).build();
     }
 }

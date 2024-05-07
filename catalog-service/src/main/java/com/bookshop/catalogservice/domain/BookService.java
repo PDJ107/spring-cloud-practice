@@ -37,9 +37,7 @@ public class BookService {
     public BookResponse updateBookDetails(String isbn, Book book) {
         Book bookFromDB = bookRepository.findByIsbn(isbn)
             .orElseGet(() -> bookRepository.save(book));
-        bookFromDB.setTitle(book.getTitle());
-        bookFromDB.setAuthor(book.getAuthor());
-        bookFromDB.setPrice(book.getPrice());
+        bookFromDB.updateDetails(book);
         return BookResponse.fromBook(bookFromDB);
     }
 }
